@@ -54,10 +54,9 @@ spec:
           KEY_NAME="temp.pfx"
 
           echo "RESTORING KEY DATA"
-          echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
-          #echo "DECODED"
+          secret=$(echo -n "$VAULT_SECRET" | base64 -d)
+          echo $secret > $KEY_NAME
           mv ./$KEY_NAME /etc/ekm
-          cat /etc/ekm/$KEY_NAME
           #extract alias
           ALIAS=$(ucl list | grep -m 1 Private)
           ALIAS=${ALIAS#*"UID="}
