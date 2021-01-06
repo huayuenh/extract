@@ -78,7 +78,7 @@ spec:
           #echo "DECODED"
           #cat $KEY_NAME
           mv ./$KEY_NAME /etc/ekm
-
+          cat /etc/ekm/$KEY_NAME
           #extract alias
           ALIAS=$(ucl list | grep -m 1 Private)
           ALIAS=${ALIAS#*"UID="}
