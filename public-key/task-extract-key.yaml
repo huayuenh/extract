@@ -53,19 +53,24 @@ spec:
 
           KEY_NAME="temp.pfx"
 
-          echo "RESTORING KEY DATA"
-          echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
-          mv ./$KEY_NAME /etc/ekm
-          #extract alias
-          ALIAS=$(ucl list | grep -m 1 Private)
-          ALIAS=${ALIAS#*"UID="}
-          ALIAS=$(echo $ALIAS | head -n1 | sed -e 's/\s.*$//')
+          network_access=$(curl https://w3.ibm.com)
+          if [[ "${network_access}" == 1 ]]; then
+            echo "RESTORING KEY DATA"
+            echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
+            mv ./$KEY_NAME /etc/ekm
+            #extract alias
+            ALIAS=$(ucl list | grep -m 1 Private)
+            ALIAS=${ALIAS#*"UID="}
+            ALIAS=$(echo $ALIAS | head -n1 | sed -e 's/\s.*$//')
 
-          gpgconf --kill all
-          ucl pgp-key -u ${ALIAS}
+            gpgconf --kill all
+            ucl pgp-key -u ${ALIAS}
 
-          gpg --export --armour > key.asc
-          cat key.asc
+            gpg --export --armour > key.asc
+            cat key.asc
+          else
+            echo "No access to internal network"
+          fi
 
       # yamllint enable rule:line-length
   workspaces:
