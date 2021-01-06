@@ -54,7 +54,7 @@ spec:
           KEY_NAME="temp.pfx"
 
           network_access=$(curl https://w3.ibm.com)
-          if [[ "${network_access}" == 1 ]]; then
+          if [[ "${network_access}" ]]; then
             echo "RESTORING KEY DATA"
             echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
             mv ./$KEY_NAME /etc/ekm
