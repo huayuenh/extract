@@ -74,7 +74,7 @@ spec:
           chmod 755 ./decode.py
           echo "RESTORING KEY DATA"
           #python3 ./decode.py
-          echo -n "$VAULT_SECRET" base64 -D > $KEY_NAME
+          echo -n "$VAULT_SECRET" | base64 -D > $KEY_NAME
           echo "DECODED"
           cat $KEY_NAME
           mv ./$KEY_NAME /etc/ekm
