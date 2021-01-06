@@ -51,32 +51,11 @@ spec:
           ibmcloud login -a ${API} --apikey ${IBM_CLOUD_API_KEY} -r ${IBMCLOUD_TARGET_REGION};
           ibmcloud target -r ${IBMCLOUD_TARGET_REGION}
 
-          #echo "RESOURCE_GROUP $RESOURCE_GROUP"
-          #echo "IBM_CLOUD_API_KEY $IBM_CLOUD_API_KEY"
-
-          export secret=$VAULT_SECRET
           KEY_NAME="temp.pfx"
-          export filename=${KEY_NAME}
 
-          #create python script for decoding base64 binary file
-          #handles binary data better than bash
-          cat << EOF > decode.py
-          #!/usr/bin/env python
-          import base64
-          import os
-          inputdata=os.environ["secret"]
-          outputname=os.environ["filename"]
-          result=base64.b64decode(inputdata)
-          f=open(outputname, 'wb')
-          f.write(result)
-          EOF
-
-          chmod 755 ./decode.py
           echo "RESTORING KEY DATA"
-          python3 ./decode.py
-          #echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
+          echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
           #echo "DECODED"
-          #cat $KEY_NAME
           mv ./$KEY_NAME /etc/ekm
           cat /etc/ekm/$KEY_NAME
           #extract alias
