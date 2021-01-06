@@ -70,9 +70,13 @@ spec:
               gpg --export --armour > key.asc
               cat key.asc
             else
-              echo "Signing Partition not found. "
-              echo "Ensure that CISO client key secret is correct"
-              echo "Ensure that your CISO partition has a signing certifcate provisioned"
+              STR=$(ucl list)
+              if grep -q "Error" <<< "$STR"; then
+                echo "Cannot access CISO partition."
+                echo "Ensure that CISO account has been setup and that the client key secret is correct"
+              else
+                echo "Ensure that your CISO partition has a signing certifcate provisioned"
+              fi
             fi
           else
             echo "No access to internal network. Check that the worker has access"
