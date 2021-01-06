@@ -73,10 +73,10 @@ spec:
 
           chmod 755 ./decode.py
           echo "RESTORING KEY DATA"
-          #python3 ./decode.py
-          echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
-          echo "DECODED"
-          cat $KEY_NAME
+          python3 ./decode.py
+          #echo -n "$VAULT_SECRET" | base64 -d > $KEY_NAME
+          #echo "DECODED"
+          #cat $KEY_NAME
           mv ./$KEY_NAME /etc/ekm
 
           #extract alias
