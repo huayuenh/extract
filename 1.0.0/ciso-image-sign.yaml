@@ -151,8 +151,7 @@ spec:
           SIGNING_DIR="signing"
           mkdir ${SIGNING_DIR}
 
-          SIGNING_KEY="FAKE" 
-          #${FINGERPRINT}
+          SIGNING_KEY=${FINGERPRINT}
 
           if [[ "$SIGNING_KEY" ]]; then
               echo "SIGNING REPO"
