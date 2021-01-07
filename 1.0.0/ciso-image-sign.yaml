@@ -148,7 +148,6 @@ spec:
           FINGERPRINT=$(gpg2 -k)
           FINGERPRINT=${FINGERPRINT#*"[SCEA]"}
           FINGERPRINT=$(echo $FINGERPRINT | head -n1 | sed -e 's/\s.*$//')
-          echo "FINGERPRINT $FINGERPRINT"
           SIGNING_DIR="signing"
           mkdir ${SIGNING_DIR}
 
@@ -195,7 +194,6 @@ spec:
             cd /artifacts
             echo ${SIGNATURE_DATA} > $(params.evidence)
             echo -n $(params.evidence) | tee $(results.signature.path)
-            echo "SIG ${SIGNATURE_DATA}"
           else
             echo "Signing failed."
             cd /artifacts
