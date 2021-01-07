@@ -113,8 +113,12 @@ spec:
           echo "IMAGE_TAG $IMAGE_TAG"
           echo "REGISTRY_NAMESPACE $REGISTRY_NAMESPACE"
           echo "REGISTRY_URL $REGISTRY_URL"
-
-          #Use utility script for reading from Key Protect
+          network_access=$(curl https://w3.ibm.com)
+          if [[ "${network_access}" ]]; then
+            echo "CISO service reachable"
+          else
+            echo "No access to internal network. Check that the worker has access"
+          fi
 
           KEY_NAME="temp.pfx"
           echo "RESTORING KEY DATA"
@@ -124,6 +128,17 @@ spec:
 
           #extract alias
           ALIAS=$(ucl list | grep -m 1 Private)
+          if [[ "$ALIAS" ]]; then
+            echo "Certificate found"
+          else
+            STR=$(ucl list)
+            if grep -q "Error" <<< "$STR"; then
+              echo "Cannot access CISO partition."
+              echo "Ensure that CISO account has been setup and that the client key secret is correct"
+            else
+              echo "Ensure that your CISO partition has a signing certifcate provisioned"
+            fi
+          fi
           ALIAS=${ALIAS#*"UID="}
           ALIAS=$(echo $ALIAS | head -n1 | sed -e 's/\s.*$//')
           echo "Alias: $ALIAS"
