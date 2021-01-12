@@ -90,7 +90,7 @@ For uninstalling Portieris and further details. Refer to the Protieris readme.
 
 ### Provisioning the Secrets Key
 
-We need to have a public key that can be obtained from the CISO signing key. If you are well versed with the CISO client and have access to the CISO account you can generate this locally by installing the CISO client and follow the instructions provided by CISO that can be accessed when you log in. 
+We need to have a public key that can be obtained from the CISO signing key. If you are well versed with the CISO client and have access to the CISO account you can generate this locally by installing the CISO client and following the instructions provided by CISO that can be accessed when you log in. 
 <https://pgawdccosig01.sl.bluecloud.ibm.com/help/ph2-3-signverify>
 
 Otherwise there is a simple toolchain template that can be set up that will extract/generate the public signing key for you.
