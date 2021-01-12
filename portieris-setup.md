@@ -69,9 +69,9 @@ To get started go to the Portieris release page and download the latest version
 
 <https://github.com/IBM/portieris/releases>
 
-Use the same namespace that will be used in the Compliance-CI-Template
-
 Unpack the download with tar xzvf portieris-0.XX.X.tgz 
+
+Use the same namespace that you set in the Compliance-CI-Template 
 
 Run
 ```javascript
