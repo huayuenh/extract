@@ -90,6 +90,13 @@ For uninstalling Portieris and further details. Refer to the Protieris readme.
 
 ### Provisioning the Secrets Key
 
+We need to have a public key that can be obtained from the CISO signing key. If you are well versed with the CISO client and have access to the CISO account you can generate this locally by installing the CISO client. Otherwise there is a simple toolchain template that can be set up that will extract/generate the piblic signing key for you.
+
+See <https://github.ibm.com/one-pipeline/portieris-config-helper>
+
+Create an instance of the template using the same values that you used for the CI-template. 
+Run the pipeline and the public certificate will be written out to the log. Copy the certifcate content into a file called key.asc
+
 With the public key on hand we need to use it to generate a Kubernetes
 secret. For this illustration, we will call the public certificate key
 from GPG key.asc
