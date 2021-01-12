@@ -85,7 +85,7 @@ server when the API server makes admission requests. If you do not
 generate new certificates, it could be possible for an attacker to spoof
 Portieris in your cluster.
 
-For uninstalling Portieris and further details. Refer to the Protieris readme.
+For uninstalling Portieris and further details. Refer to the Portieris readme.
 <https://github.com/IBM/portieris/blob/master/README.md>
 
 ### Provisioning the Secrets Key
