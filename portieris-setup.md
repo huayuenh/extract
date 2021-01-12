@@ -98,8 +98,7 @@ Create an instance of the template using the same values that you used for the C
 Run the pipeline and the public certificate will be written out to the log. Copy the certifcate content into a file called key.asc
 
 With the public key on hand we need to use it to generate a Kubernetes
-secret. For this illustration, we will call the public certificate key
-from GPG key.asc
+secret. 
 
 First change directory to the one containing the key
 
