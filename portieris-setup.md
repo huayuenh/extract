@@ -65,17 +65,18 @@ It can be configured to secure cluster-wide deployments or namespace
 specific deployments. For this setup we will be using a namespace
 specific set up
 
-To get started clone the Protieris repository
+To get started go to the Portieris release page and download the latest version
 
-<https://github.com/IBM/portieris.git>
+<https://github.com/IBM/portieris/releases>
 
 Use the same namespace that will be used in the Compliance-CI-Template
 
-Change directory into the Portieris Git repository.
+Unpack the download with tar xzvf portieris-0.XX.X.tgz 
 
 Run
 ```javascript
-./helm/portieris/gencerts <namespace>
+sh portieris/gencerts <namespace>.
+helm install portieris --create-namespace --namespace <namespace> ./portieris.
 ```
 
 The gencerts script generates new SSL certificates and keys for
@@ -84,16 +85,8 @@ server when the API server makes admission requests. If you do not
 generate new certificates, it could be possible for an attacker to spoof
 Portieris in your cluster.
 
-Run
-```javascript
-kubectl create namespace <namespace>
-```
-
-Run
-```javascript
-helm install portieris --set namespace=<namespace> helm/portieris
-```
-
+For uninstalling Portieris and further details. Refer to the Protieris readme.
+<https://github.com/IBM/portieris/blob/master/README.md>
 
 ### Provisioning the Secrets Key
 
