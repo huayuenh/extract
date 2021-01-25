@@ -9,12 +9,15 @@ spec:
       description: the target region
     - name: dev-resource-group
       description: Resource Group
-
+    - name: registry-region
+    - name: registry-namespace
+    - name: image-name
+    - name: image-tag
   workspaces:
     - name: artifacts
 
   tasks:
-    - name: test-run
+    - name: test
       taskRef:
         name: ciso-image-sign
       workspaces:
@@ -25,3 +28,11 @@ spec:
           value: $(params.dev-region)
         - name: resource-group
           value: $(params.dev-resource-group)
+        - name: registry-region
+          value: $(params.registry-region)
+        - name: registry-namespace
+          value: $(params.registry-namespace)
+        - name: image-name
+          value: $(params.image-name)
+        - name: image-tag
+          value: $(params.image-tag)
