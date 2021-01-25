@@ -34,10 +34,6 @@ spec:
     - name: break-glass-key
       description: Key in the `break-glass-name` `ConfigMap` that holds the Break-Glass mode settings
       default: break_glass
-    - name: certificate-uid
-      description: ucl-list command provides a list of the certificates. The UID for the rsa certificate can be obtained there
-      default: ""
-    - name: 
   stepTemplate:
     env:
       - name: PIPELINE_DEBUG
