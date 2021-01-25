@@ -1,0 +1,27 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: helper-pipeline
+spec:
+  params:
+    - name: dev-region
+      description: the target region
+    - name: dev-resource-group
+      description: Resource Group
+
+  workspaces:
+    - name: artifacts
+
+  tasks:
+    - name: extract-public-key
+      taskRef:
+        name: ciso-extract-key
+      workspaces:
+        - name: artifacts
+          workspace: artifacts
+      params:
+        - name: region
+          value: $(params.dev-region)
+        - name: resource-group
+          value: $(params.dev-resource-group)
