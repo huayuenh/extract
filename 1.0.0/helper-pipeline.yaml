@@ -14,9 +14,9 @@ spec:
     - name: artifacts
 
   tasks:
-    - name: extract-public-key
+    - name: test-run
       taskRef:
-        name: ciso-extract-key
+        name: ciso-image-sign
       workspaces:
         - name: artifacts
           workspace: artifacts
