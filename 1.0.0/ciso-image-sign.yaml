@@ -161,6 +161,9 @@ spec:
           PASS=$?
           echo $PASS | tee $(results.exit-code.path)
           if [[ "$SIGNING_KEY" && "$PASS" == 0 ]]; then
+            REGISTRY_URL="uk.icr.io"
+            REGISTRY_NAMESPACE="huayuenhlon"
+            ibmcloud target -r eu-gb
             echo "No issues were found"
             REG=${REGISTRY_URL}
             IAMBEARER=$(ibmcloud iam oauth-tokens | awk '/IAM/ { print $4; }')
@@ -181,7 +184,8 @@ spec:
             DIGEST="sha256:${TMP_DIGEST}"
 
             SIGNATURES=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${REG}/extensions/v2/${NAME}/signatures/${DIGEST} | jq '.signatures')
-
+            echo "LIST SIGNATURES"
+            echo "$SIGNATURES"
             COUNT=$(echo "${SIGNATURES}" | jq '. | length')
             INDEX=$(echo "$((COUNT - 1))")
             echo "SIGNATURE INDEX ${INDEX}"
