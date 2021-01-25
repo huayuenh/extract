@@ -3,8 +3,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: ciso-image-sign
-  labels:
-    app.kubernetes.io/version: 1.0.0
 spec:
   params:
     - name: continuous-delivery-context-secret
@@ -36,6 +34,10 @@ spec:
     - name: break-glass-key
       description: Key in the `break-glass-name` `ConfigMap` that holds the Break-Glass mode settings
       default: break_glass
+    - name: certificate-uid
+      description: ucl-list command provides a list of the certificates. The UID for the rsa certificate can be obtained there
+      default: ""
+    - name: 
   stepTemplate:
     env:
       - name: PIPELINE_DEBUG
@@ -155,7 +157,8 @@ spec:
 
           if [[ "$SIGNING_KEY" ]]; then
               echo "SIGNING REPO"
-              skopeo copy docker://${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} docker://${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} --dest-creds iamapikey:${IBM_CLOUD_API_KEY} --src-creds iamapikey:${IBM_CLOUD_API_KEY} --sign-by ${SIGNING_KEY}
+              #skopeo copy docker://${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} docker://${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} --dest-creds iamapikey:${IBM_CLOUD_API_KEY} --src-creds iamapikey:${IBM_CLOUD_API_KEY} --sign-by ${SIGNING_KEY}
+              skopeo copy docker://${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} docker://uk.icr.io/huayuenhlon/${IMAGE_NAME}:${IMAGE_TAG} --dest-creds iamapikey:${IBM_CLOUD_API_KEY} --src-creds iamapikey:${IBM_CLOUD_API_KEY}
           else
               echo "No key found. Unable to sign"
           fi
