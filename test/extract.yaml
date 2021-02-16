@@ -36,7 +36,7 @@ spec:
       script: |
           #!/bin/bash
           set +e
-          ARTIFACTORY=$(cat toolchain.json | jq -r '.services[] | select (.service_id=="artifactory")' | jq -r '.parameters')
+          ARTIFACTORY=$(cat /cd-config/toolchain.json | jq -r '.services[] | select (.service_id=="artifactory")' | jq -r '.parameters')
           TOKEN=$(echo "$ARTIFACTORY" | jq -r '.token')
           DOCKER_CONFIG_JSON=$(echo "$ARTIFACTORY" | jq -r '.docker_config_json')
           echo "$TOKEN"
