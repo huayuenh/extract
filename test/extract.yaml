@@ -16,9 +16,16 @@ spec:
     - name: ibmcloud-api
       description: the ibmcloud api
       default: https://cloud.ibm.com
+  volumes:
+    - name: cd-config
+      configMap:
+        name: toolchain
   steps:
     - name: sign-image
       image: ibmcom/pipeline-base-image:2.9@sha256:2976e1374e87f5cddabcf80179d9708868d52dbf656fdde60f803553be633db2
+      volumeMounts:
+        - name: cd-config
+          mountPath: /cd-config
       env:
         - name: IBM_CLOUD_API_KEY
           valueFrom:
@@ -31,6 +38,7 @@ spec:
           set +e
           echo "running"
           ls workspace
+          cat /cd-config/toolchain.json
           
       # yamllint enable rule:line-length
 
