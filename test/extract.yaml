@@ -1,0 +1,39 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test
+spec:
+  params:
+    - name: continuous-delivery-context-secret
+      description: name of the configmap containing the continuous delivery pipeline context secrets
+      default: secure-properties
+    - name: toolchain-apikey-secret-key
+      description: field in the secret that contains the api key used to login to ibmcloud kubernetes service
+      default: api-key
+    - name: region
+      default: "us-south"
+    - name: ibmcloud-api
+      description: the ibmcloud api
+      default: https://cloud.ibm.com
+  steps:
+    - name: sign-image
+      image: ibmcom/pipeline-base-image:2.9@sha256:2976e1374e87f5cddabcf80179d9708868d52dbf656fdde60f803553be633db2
+      env:
+        - name: IBM_CLOUD_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: $(params.continuous-delivery-context-secret)
+              key: $(params.toolchain-apikey-secret-key)
+      # yamllint disable rule:line-length
+      script: |
+          #!/bin/bash
+          set +e
+          echo "running"
+          ls
+      # yamllint enable rule:line-length
+
+  workspaces:
+    - name: artifacts
+      description: A workspace backing by a volume
+      mountPath: /artifacts

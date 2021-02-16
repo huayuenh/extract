@@ -1,0 +1,18 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: helper-pipeline
+spec:
+  params:
+  workspaces:
+    - name: artifacts
+
+  tasks:
+    - name: test
+      taskRef:
+        name: extract
+      workspaces:
+        - name: artifacts
+          workspace: artifacts
+      params:
