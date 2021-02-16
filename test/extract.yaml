@@ -30,7 +30,7 @@ spec:
           #!/bin/bash
           set +e
           echo "running"
-          ls artifacts
+          ls workspace
           
       # yamllint enable rule:line-length
 
