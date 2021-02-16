@@ -11,7 +11,7 @@ spec:
   tasks:
     - name: test
       taskRef:
-        name: extract
+        name: test
       workspaces:
         - name: artifacts
           workspace: artifacts
